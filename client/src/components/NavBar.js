@@ -13,7 +13,7 @@ export const NavBar = () => {
                 <br/>
                 <Menu.Item as={NavLink} to="/login">Log In</Menu.Item>
                 <br/>
-                <Menu.Item as={NavLink} to="/signup">Sign Up</Menu.Item>
+                <Menu.Item as={NavLink} to="/signup-page">Sign Up</Menu.Item>
             </Menu>
     )
 }

@@ -1,9 +1,9 @@
 import React from 'react'
 
-export const Signup = () => {
+export const CoursePreview = () => {
     return (
         <div>
-            This is the signup page!
+            
         </div>
     )
 }
