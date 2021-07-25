@@ -7,6 +7,7 @@ import { SignupPage } from './containers/SignupPage';
 import { Login } from './containers/Login';
 import { SuggestedCourses } from './containers/SuggestedCourses';
 import { SearchPage } from './containers/SearchPage';
+import { NewCoursePage } from './containers/NewCoursePage';
 
 class App extends Component {
 
@@ -23,7 +24,7 @@ class App extends Component {
       } else {
           res.json().then((errorData) => console.log(errorData.errors));
       }
-  })
+    })
   }
 
   componentDidMount() {
@@ -53,6 +54,7 @@ class App extends Component {
             <Route exact path="/search" render={() => <SearchPage/>}/>
             <Route exact path="/signup-page" render={() => <SignupPage manageLogin={this.manageLogin}/>}/>
             <Route exact path="/login" render={() => <Login manageLogin={this.manageLogin}/>}/>
+            <Route exact path="/newcourse" render={() => <NewCoursePage/>}/>
           </Switch>
         </div>
     );
