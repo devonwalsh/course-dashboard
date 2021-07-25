@@ -1,9 +1,8 @@
-import React from 'react'
+import React from 'react';
+import { LoginForm } from '../components/LoginForm';
 
-export const Login = () => {
+export const Login = (props) => {
     return (
-        <div>
-            This is the login page!
-        </div>
+            <LoginForm manageLogin={props.manageLogin}/>
     )
 }
