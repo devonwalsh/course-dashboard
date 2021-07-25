@@ -1,8 +1,8 @@
 import React from 'react'
 import { SignupForm } from '../components/SignupForm';
 
-export const SignupPage = () => {
+export const SignupPage = (props) => {
     return (
-        <SignupForm/>
+        <SignupForm manageLogin={props.manageLogin}/>
     )
 }
