@@ -24,7 +24,7 @@ class App extends Component {
       } else {
           res.json().then((errorData) => console.log(errorData.errors));
       }
-  })
+    })
   }
 
   componentDidMount() {

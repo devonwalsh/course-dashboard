@@ -1,9 +1,10 @@
 import React from 'react'
+import { SearchForm } from '../components/SearchForm';
 
 export const SearchPage = () => {
     return (
         <div>
-            This is your course search page!
+            <SearchForm/>
         </div>
     )
 }

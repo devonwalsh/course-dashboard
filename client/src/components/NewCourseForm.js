@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form } from 'semantic-ui-react';
+import { Form, Button } from 'semantic-ui-react';
 
 export const NewCourseForm = () => {
 
@@ -14,12 +14,17 @@ export const NewCourseForm = () => {
                     fluid
                     label='Source'
                     options={sources}
+                    placeholder="Select..."
                 />
+                <Form.Group>
                 <Form.Select
                     fluid
                     label='Category'
                     options={categories}
+                    placeholder="Select..."
                 />
+                <Button>Add a New Category</Button>
+                </Form.Group>
             </Form>  
         </div>
     )
