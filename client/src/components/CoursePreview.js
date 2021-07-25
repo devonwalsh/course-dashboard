@@ -14,7 +14,7 @@ export const CoursePreview = (props) => {
                 id: props.courseData.id,
                 title: props.courseData.title,
                 source: props.courseData.source,
-                category_id: props.courseData.categoryid
+                category_id: props.courseData.category_id
             })
         })
         .then(res => {

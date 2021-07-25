@@ -7,7 +7,7 @@ export const Dashboard = () => {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        getCourses();
+        getUserCategories();
     }, []);
 
     const getCategories = (data) => {
@@ -25,6 +25,12 @@ export const Dashboard = () => {
         fetch('/usercourses')
         .then(res => res.json())
         .then(data => getData(data))
+    }
+
+    const getUserCategories = () => {
+        fetch('/usercategories')
+        .then(res => res.json())
+        .then(data => console.log(data))
     }
 
     return (
