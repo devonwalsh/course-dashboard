@@ -21,11 +21,6 @@ ActiveRecord::Schema.define(version: 2021_07_25_190826) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "categories_users", id: false, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "category_id"
-  end
-
   create_table "courses", force: :cascade do |t|
     t.string "title"
     t.string "source"
