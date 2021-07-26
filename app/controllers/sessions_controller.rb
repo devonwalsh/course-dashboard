@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
     
-    def create #login
+    def create
         user = User.find_by(username: user_params[:username])
         if user&.authenticate(user_params[:password])
             session[:user_id] = user.id
@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
         render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
     end
 
-    def destroy #logout
+    def destroy
         session.clear
         head :no_content
     end

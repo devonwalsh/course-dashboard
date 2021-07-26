@@ -4,15 +4,10 @@ class CoursesController < ApplicationController
         courses = Course.all
         render json: courses
     end
-
-    def user_courses
-        user = User.find_by(id: session[:user_id])
-        courses = user.courses.includes(:category)
-        render json: courses, :include => [:category]
-    end
     
-    def create #login
+    def create
         course = Course.create(course_params)
+        render json: course, status: :created
     end
 
     private

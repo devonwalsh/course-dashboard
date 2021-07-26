@@ -1,7 +1,10 @@
 class CategoriesController < ApplicationController
-    def user_categories
+    def index
         user = User.find_by(id: session[:user_id])
-        categories = user.categories.includes(:courses)
-        render json: categories, :include => [:courses]
+        categories_with_courses = User.
+            select("users.id, categories.name as category, courses.title, courses.source").
+            joins(:categories).
+            where("users.id = '#{user.id}'")
+        render json: categories_with_courses
     end
 end

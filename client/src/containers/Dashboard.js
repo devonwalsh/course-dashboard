@@ -7,36 +7,30 @@ export const Dashboard = () => {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        getUserCategories();
+        getData();
     }, []);
 
-    const getCategories = (data) => {
-        let category_list = [];
-        data.map(item => category_list.push(item.category.name))
-        setCategories(category_list)
+    const getData = () => {
+        fetch('/categories')
+        .then(res => res.json())
+        .then(data => setData(data))
     }
 
-    const getData = (data) => {
+    const setData = (data) => {
         setCourses(data);
         getCategories(data);
     }
 
-    const getCourses = () => {
-        fetch('/usercourses')
-        .then(res => res.json())
-        .then(data => getData(data))
-    }
-
-    const getUserCategories = () => {
-        fetch('/usercategories')
-        .then(res => res.json())
-        .then(data => console.log(data))
+    const getCategories = (data) => {
+        let category_list = [];
+        data.map(item => category_list.push(item.category))
+        setCategories(category_list)
     }
 
     return (
         <div>
             {
-                categories.map((item, idx) => <CourseList key={idx} categories={categories}/>)
+                categories.map((item, idx) => <CourseList key={idx} categories={categories} courses={courses}/>)
             }
         </div>
     )
