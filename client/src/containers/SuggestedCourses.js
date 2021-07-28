@@ -24,6 +24,7 @@ export const SuggestedCourses = (props) => {
                         courseData={item} 
                         updateUserState={props.updateUserState}
                         user_courses={props.user_courses}
+                        setUserData={props.setUserData}
                     />
                 )
             }

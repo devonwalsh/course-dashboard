@@ -158,7 +158,13 @@ class App extends Component {
   updateUserState = (data) => {
     const updatedCategories = [...this.state.user_categories, data.category]
     const sortedCategories = updatedCategories.sort();
-    this.setState({user_courses: [...this.state.user_courses, data], user_categories: sortedCategories})
+    const updatedSources = [...this.state.user_sources, data.source]
+    const sortedSources = updatedSources.sort();
+    this.setState({
+      user_courses: [...this.state.user_courses, data], 
+      user_categories: sortedCategories,
+      user_sources: sortedSources
+    })
   }
 
   render() {
@@ -174,12 +180,14 @@ class App extends Component {
                 user_categories={this.state.user_categories} 
                 user_courses={this.state.user_courses} 
                 updateUserState={this.updateUserState}
+                setUserData={this.setUserData}
               />
             }/>
             <Route exact path="/suggestions" render={() => 
               <SuggestedCourses 
                 updateUserState={this.updateUserState}
                 user_courses={this.state.user_courses} 
+                setUserData={this.setUserData}
               />
             }/>
             <Route exact path="/search" render={() => 

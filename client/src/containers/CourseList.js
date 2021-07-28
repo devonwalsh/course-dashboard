@@ -14,6 +14,7 @@ export const CourseList = (props) => {
                         courseData={item} 
                         updateUserCourses={props.updateUserCourses} 
                         user_courses={props.user_courses}
+                        setUserData={props.setUserData}
                     />
                 )}
             </Segment>
