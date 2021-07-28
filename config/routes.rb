@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
-  resources :courses, :categories, :lessons
-  resources :users do
-    resources :courses, :categories, :lessons
-  end
+  resources :courses, :categories, :lessons :users
 
   get "/me", to: "users#show"
   get "/courses", to: "courses#index"
