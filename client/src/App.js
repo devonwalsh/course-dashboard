@@ -164,20 +164,46 @@ class App extends Component {
   render() {
     return (
         <div className="App">
-          <NavBar loggedIn={this.state.loggedIn} manageLogout={this.manageLogout}/>
+          <NavBar 
+            loggedIn={this.state.loggedIn} 
+            manageLogout={this.manageLogout}
+          />
           <Switch>
-            <Route exact path="/" render={() => <Dashboard categories={this.state.user_categories} courses={this.state.user_courses} updateUserState={this.updateUserState}/>}/>
-            <Route exact path="/suggestions" render={() => <SuggestedCourses updateUserState={this.updateUserState}/>}/>
-            <Route exact path="/search" render={() => <SearchPage/>}/>
-            <Route exact path="/signup-page" render={() => <SignupPage manageLogin={this.manageLogin}/>}/>
-            <Route exact path="/login" render={() => <Login manageLogin={this.manageLogin}/>}/>
-            <Route exact path="/newcourse" render={() => <NewCoursePage 
-              categories={this.state.all_categories} 
-              updateCategories={this.updateCategories} 
-              categoryDropdown={this.state.categoryDropdown}
-              sources={this.state.all_sources} 
-              sourceDropdown={this.state.sourceDropdown}/>}
-            />
+            <Route exact path="/" render={() => 
+              <Dashboard 
+                user_categories={this.state.user_categories} 
+                user_courses={this.state.user_courses} 
+                updateUserState={this.updateUserState}
+              />
+            }/>
+            <Route exact path="/suggestions" render={() => 
+              <SuggestedCourses 
+                updateUserState={this.updateUserState}
+                user_courses={this.state.user_courses} 
+              />
+            }/>
+            <Route exact path="/search" render={() => 
+              <SearchPage/>
+            }/>
+            <Route exact path="/signup-page" render={() => 
+              <SignupPage 
+                manageLogin={this.manageLogin}
+              />
+            }/>
+            <Route exact path="/login" render={() => 
+              <Login 
+                manageLogin={this.manageLogin}
+              />
+            }/>
+            <Route exact path="/newcourse" render={() => 
+              <NewCoursePage 
+                categories={this.state.all_categories} 
+                updateCategories={this.updateCategories} 
+                categoryDropdown={this.state.categoryDropdown}
+                sources={this.state.all_sources} 
+                sourceDropdown={this.state.sourceDropdown}
+              />
+            }/>
           </Switch>
         </div>
     );
