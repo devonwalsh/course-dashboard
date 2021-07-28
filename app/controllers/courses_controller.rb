@@ -19,10 +19,20 @@ class CoursesController < ApplicationController
         render json: course, status: :created
     end
 
+    def save
+        user = User.find_by(id: session[:user_id])
+        course = Course.find_by(id: course_params[:id])
+        user.courses << course
+        render json: course, status: :created
+    end
+
+    def unsave
+    end
+
     private
 
     def course_params
-        params.permit(:title, :source, :category_id)
+        params.permit(:id, :title, :source, :category_id)
     end
 
 end

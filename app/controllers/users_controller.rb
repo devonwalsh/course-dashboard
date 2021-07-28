@@ -19,13 +19,6 @@ class UsersController < ApplicationController
         end
     end
 
-    def save
-        user = User.find_by(id: session[:user_id])
-        course = Course.find_by(id: course_params[:id])
-        user.courses << course
-        render json: course, status: :created
-    end
-
     private
 
     def user_params

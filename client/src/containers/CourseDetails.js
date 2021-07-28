@@ -6,8 +6,6 @@ export const CourseDetails = (props) => {
         <div>
             <Card>
                 {props.courseData.title}
-                <Button>View Details</Button>
-                <Button>Unsave Course</Button>
             </Card>
         </div>
     )

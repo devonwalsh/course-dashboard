@@ -13,6 +13,7 @@ class App extends Component {
 
   state = {
     loggedIn: false,
+    loading: true,
     username: '',
     all_courses: [],
     all_categories: [],
@@ -60,7 +61,7 @@ class App extends Component {
     data.map(item => category_list.includes(item.name) ? null : category_list.push(item.name))
     category_list.sort();
     this.setState({all_categories: category_list})
-    this.populateCategoryDropdown(category_list)
+    this.populateCategoryDropdown(data)
   }
 
   getCategories = () => {
@@ -105,8 +106,14 @@ class App extends Component {
 
   populateCategoryDropdown = (data) => {
     const categoryObject = data.map(item => 
-      Object.assign({}, {"key": item, "text": item, "value": item})
+      Object.assign({}, {"key": item.id, "text": item.name, "value": item.id})
     )
+
+    categoryObject.sort((a, b) => {
+      a = a.text.toUpperCase();
+      b = b.text.toUpperCase();
+      return (a < b) ? -1 : (a > b) ? 1 : 0;
+    })
 
     this.setState({categoryDropdown: categoryObject})
   }
@@ -134,10 +141,24 @@ class App extends Component {
     this.props.history.push("/")
   }
 
-  updateCategories = (newCategories) => {
-    const sortedCategories = newCategories.sort();
-    this.setState({categories: sortedCategories});
-    this.populateSourceDropdown(sortedCategories)
+  updateCategories = (newCategory) => {
+    const updatedCategories = [...this.state.all_categories, newCategory]
+    const sortedCategories = updatedCategories.sort();
+    this.setState({all_categories: sortedCategories});
+    this.populateCategoryDropdown(sortedCategories)
+  }
+
+  updateSources = (newSource) => {
+    const updatedSources = [...this.state.all_sources, newSource]
+    const sortedSources = updatedSources.sort();
+    this.setState({all_sources: sortedSources});
+    this.populateSourceDropdown(sortedSources)
+  }
+
+  updateUserState = (data) => {
+    const updatedCategories = [...this.state.user_categories, data.category]
+    const sortedCategories = updatedCategories.sort();
+    this.setState({user_courses: [...this.state.user_courses, data], user_categories: sortedCategories})
   }
 
   render() {
@@ -145,16 +166,16 @@ class App extends Component {
         <div className="App">
           <NavBar loggedIn={this.state.loggedIn} manageLogout={this.manageLogout}/>
           <Switch>
-            <Route exact path="/" render={() => <Dashboard categories={this.state.user_categories} courses={this.state.user_courses}/>}/>
-            <Route exact path="/suggestions" render={() => <SuggestedCourses/>}/>
+            <Route exact path="/" render={() => <Dashboard categories={this.state.user_categories} courses={this.state.user_courses} updateUserState={this.updateUserState}/>}/>
+            <Route exact path="/suggestions" render={() => <SuggestedCourses updateUserState={this.updateUserState}/>}/>
             <Route exact path="/search" render={() => <SearchPage/>}/>
             <Route exact path="/signup-page" render={() => <SignupPage manageLogin={this.manageLogin}/>}/>
             <Route exact path="/login" render={() => <Login manageLogin={this.manageLogin}/>}/>
             <Route exact path="/newcourse" render={() => <NewCoursePage 
-              categories={this.state.categories} 
+              categories={this.state.all_categories} 
               updateCategories={this.updateCategories} 
               categoryDropdown={this.state.categoryDropdown}
-              sources={this.state.sources} 
+              sources={this.state.all_sources} 
               sourceDropdown={this.state.sourceDropdown}/>}
             />
           </Switch>

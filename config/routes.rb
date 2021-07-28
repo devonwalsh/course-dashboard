@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get "/categories", to: "categories#index"
   post "/signup", to: "users#create"
   post "/login", to: "sessions#create"
-  post "/save", to: "users#save"
+  post "/save", to: "courses#save"
   delete "/logout", to: "sessions#destroy"
   delete "/unsave", to: "courses#unsave"
   
