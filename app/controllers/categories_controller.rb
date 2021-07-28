@@ -7,4 +7,15 @@ class CategoriesController < ApplicationController
             where("users.id = '#{user.id}'")
         render json: categories_with_courses
     end
+
+    def create
+        category = Category.create(category_params)
+        render json: category, status: :created
+    end
+
+    private
+
+    def category_params
+        params.permit(:name)
+    end
 end
