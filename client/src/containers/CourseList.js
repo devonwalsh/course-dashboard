@@ -1,12 +1,14 @@
 import React from 'react'
 import { Segment } from 'semantic-ui-react';
+import { CourseDetails } from './CourseDetails';
 
 export const CourseList = (props) => {
     return (
         <div>
-            {
-                props.categories.map((item, idx) => <Segment key={idx}>{item}</Segment>)
-            }   
+            <Segment>
+                {props.category}
+                {props.courses.map((item, idx) => <CourseDetails key={idx} courseData={item}/>)}
+            </Segment>
         </div>
     )
 }
