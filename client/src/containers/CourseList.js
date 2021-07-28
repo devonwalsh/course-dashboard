@@ -8,7 +8,14 @@ export const CourseList = (props) => {
         <div>
             <Segment>
                 {props.category}
-                {props.courses.map((item, idx) => <CoursePreview key={idx} courseData={item} updateUserCourses={props.updateUserCourses}/>)}
+                {props.user_courses.map((item, idx) => 
+                    <CoursePreview 
+                        key={idx} 
+                        courseData={item} 
+                        updateUserCourses={props.updateUserCourses} 
+                        user_courses={props.user_courses}
+                    />
+                )}
             </Segment>
         </div>
     )

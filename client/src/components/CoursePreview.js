@@ -32,13 +32,23 @@ export const CoursePreview = (props) => {
         .catch(error => console.log(error))
     }
 
+    const renderSaveButton = (course_id) => {
+        let course_saved = props.user_courses.find(item =>  item.id === course_id)
+
+        if (course_saved) {
+            return (<Button>Unsave</Button>)
+        }
+        else {
+            return <Button onClick={saveCourse}>Save</Button>
+        }
+    }
+
     return (
         <div>
             <Card>
                 {props.courseData.title}
                 <br/>
-                <Button onClick={saveCourse}>Save</Button>
-                <Button>Unsave</Button>
+                {renderSaveButton(props.courseData.id)}
             </Card>
         </div>
     )

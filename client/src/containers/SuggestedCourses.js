@@ -18,7 +18,14 @@ export const SuggestedCourses = (props) => {
     return (
         <div>
             {
-                courses.map((item, idx) => <CoursePreview key={idx} courseData={item} updateUserState={props.updateUserState}/>)
+                courses.map((item, idx) => 
+                    <CoursePreview 
+                        key={idx} 
+                        courseData={item} 
+                        updateUserState={props.updateUserState}
+                        user_courses={props.user_courses}
+                    />
+                )
             }
         </div>
     )
