@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Button } from 'semantic-ui-react';
 
 export const NewCourseForm = (props) => {
 
-    const [sources, setSources] = useState([]);
-    const [categoryDropdown, setCategoryDropdown] = useState({key: "loading", text: "Loading...", value: "Loading"});
     const [newCategoryToggle, setNewCategoryToggle] = useState(false);
     const [newCategory, setNewCategory] = useState('');
     const [newSourceToggle, setNewSourceToggle] = useState(false);
     const [newSource, setNewSource] = useState('');
     const [errors, setErrors] = useState([]);
-    const [loading, setLoading] = useState(true)
 
     const addCategory = (e) => {
             e.preventDefault();
