@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   get "/me", to: "users#show"
   get "/courses", to: "courses#index"
+  get "/user_courses", to: "courses#user_courses"
   get "/categories", to: "categories#index"
   post "/signup", to: "users#create"
   post "/login", to: "sessions#create"

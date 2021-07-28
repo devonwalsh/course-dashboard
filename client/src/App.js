@@ -14,18 +14,22 @@ class App extends Component {
   state = {
     loggedIn: false,
     username: '',
-    courses: [],
-    categories: [],
+    all_courses: [],
+    all_categories: [],
+    all_sources: [],
+    user_courses: [],
+    user_categories: [],
+    user_sources: [],
     categoryDropdown: {},
-    sources: [],
     sourceDropdown: {}
   }
 
   /* Startup stuff */
 
   componentDidMount() {
-    this.getUser()
-    this.getData()
+    this.getUser();
+    this.getData();
+    this.getUserData();
   }
 
   getUser = () => {
@@ -40,23 +44,63 @@ class App extends Component {
   }
 
   getData = () => {
-      fetch('/categories')
-      .then(res => res.json())
-      .then(data => this.setData(data))
+    fetch('/courses')
+    .then(res => res.json())
+    .then(data => this.setData(data))
   }
 
   setData = (data) => {
-      this.setState({courses: data});
-      this.getCategories(data);
-      this.getSources(data);
+    this.setState({all_courses: data})
+    this.getSources(data);
+    this.getCategories();
   }
 
-  getCategories = (data) => {
+  populateCategories = (data) => {
+    let category_list = [];
+    data.map(item => category_list.includes(item.name) ? null : category_list.push(item.name))
+    category_list.sort();
+    this.setState({all_categories: category_list})
+    this.populateCategoryDropdown(category_list)
+  }
+
+  getCategories = () => {
+    fetch('/categories')
+    .then(res => res.json())
+    .then(data => this.populateCategories(data))
+  }
+
+  getSources = (data) => {
+    let source_list = [];
+    data.map(item => source_list.includes(item.source) ? null : source_list.push(item.source))
+    source_list.sort();
+    this.setState({all_sources: source_list})
+    this.populateSourceDropdown(source_list)
+}
+
+  getUserData = () => {
+      fetch('/user_courses')
+      .then(res => res.json())
+      .then(data => this.setUserData(data))
+  }
+
+  setUserData = (data) => {
+      this.setState({user_courses: data});
+      this.getUserCategories(data);
+      this.getUserSources(data);
+  }
+
+  getUserCategories = (data) => {
       let category_list = [];
       data.map(item => category_list.includes(item.category) ? null : category_list.push(item.category))
       category_list.sort();
-      this.setState({categories: category_list})
-      this.populateCategoryDropdown(category_list)
+      this.setState({user_categories: category_list})
+  }
+
+  getUserSources = (data) => {
+    let source_list = [];
+    data.map(item => source_list.includes(item.source) ? null : source_list.push(item.source))
+    source_list.sort();
+    this.setState({user_sources: source_list})
   }
 
   populateCategoryDropdown = (data) => {
@@ -66,14 +110,6 @@ class App extends Component {
 
     this.setState({categoryDropdown: categoryObject})
   }
-
-  getSources = (data) => {
-    let source_list = [];
-    data.map(item => source_list.includes(item.source) ? null : source_list.push(item.source))
-    source_list.sort();
-    this.setState({sources: source_list})
-    this.populateSourceDropdown(source_list)
-}
 
   populateSourceDropdown = (data) => {
   const sourceObject = data.map(item => 
@@ -99,7 +135,9 @@ class App extends Component {
   }
 
   updateCategories = (newCategories) => {
-    this.setState({categories: newCategories})
+    const sortedCategories = newCategories.sort();
+    this.setState({categories: sortedCategories});
+    this.populateSourceDropdown(sortedCategories)
   }
 
   render() {
@@ -107,7 +145,7 @@ class App extends Component {
         <div className="App">
           <NavBar loggedIn={this.state.loggedIn} manageLogout={this.manageLogout}/>
           <Switch>
-            <Route exact path="/" render={() => <Dashboard categories={this.state.categories} courses={this.state.courses}/>}/>
+            <Route exact path="/" render={() => <Dashboard categories={this.state.user_categories} courses={this.state.user_courses}/>}/>
             <Route exact path="/suggestions" render={() => <SuggestedCourses/>}/>
             <Route exact path="/search" render={() => <SearchPage/>}/>
             <Route exact path="/signup-page" render={() => <SignupPage manageLogin={this.manageLogin}/>}/>

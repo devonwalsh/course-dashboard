@@ -15,7 +15,6 @@ export const NavBar = (props) => {
         props.manageLogout()
     }
 
-    {
         if (!props.loggedIn) {
             return (
                 <Menu>
@@ -35,5 +34,4 @@ export const NavBar = (props) => {
                 </Menu>
             )
         }
-    }
 }
