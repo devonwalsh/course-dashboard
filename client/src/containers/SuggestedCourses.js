@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { CoursePreview } from '../components/CoursePreview';
 
-export const SuggestedCourses = () => {
+export const SuggestedCourses = (props) => {
 
     const [courses, setCourses] = useState([]);
 
@@ -18,7 +18,7 @@ export const SuggestedCourses = () => {
     return (
         <div>
             {
-                courses.map((item, idx) => <CoursePreview key={idx} courseData={item}/>)
+                courses.map((item, idx) => <CoursePreview key={idx} courseData={item} updateUserState={props.updateUserState}/>)
             }
         </div>
     )

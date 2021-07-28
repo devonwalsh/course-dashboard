@@ -3,7 +3,7 @@ import { Card, Button } from 'semantic-ui-react';
 
 export const CoursePreview = (props) => {
 
-    const handleSubmit = (e) => {
+    const saveCourse = (e) => {
         e.preventDefault()
         fetch("/save", {
             method: "POST",
@@ -14,12 +14,17 @@ export const CoursePreview = (props) => {
                 id: props.courseData.id,
                 title: props.courseData.title,
                 source: props.courseData.source,
-                category_id: props.courseData.category_id
+                category_id: props.courseData.category.id
             })
         })
         .then(res => {
             if (res.ok) {
-                res.json().then((data) => console.log(data));
+                res.json().then((data) => props.updateUserState({
+                    id: data.id,
+                    source: data.source,
+                    title: data.title,
+                    category: data.category.name
+                }));
             } else {
                 res.json().then((errorData) => console.log(errorData));
             }
@@ -32,7 +37,8 @@ export const CoursePreview = (props) => {
             <Card>
                 {props.courseData.title}
                 <br/>
-                <Button onClick={handleSubmit}>Save</Button>
+                <Button onClick={saveCourse}>Save</Button>
+                <Button>Unsave</Button>
             </Card>
         </div>
     )
