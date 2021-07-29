@@ -27,6 +27,13 @@ class CoursesController < ApplicationController
     end
 
     def unsave
+        user = User.find_by(id: session[:user_id])
+        # course = Course.find_by(id: course_params[:id])
+        categories_with_courses = User.
+        select("users.id AS user_id, categories.name as category, courses.id AS id, courses.title, courses.source").
+        joins(:categories).
+        where("users.id = '#{user.id}' AND courses.id != '#{course_params[:id]}'")
+        render json: categories_with_courses
     end
 
     private

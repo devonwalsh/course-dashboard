@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'semantic-ui-react';
+import { CoursePreview } from './CoursePreview';
 
 export const NewCourseForm = (props) => {
 
@@ -9,6 +10,7 @@ export const NewCourseForm = (props) => {
     const [source, setSource] = useState('');
     const [category, setCategory] = useState('');
     const [errors, setErrors] = useState([]);
+    const [newCourse, setNewCourse] = useState({});
 
     const addCategory = (e) => {
         e.preventDefault();
@@ -52,13 +54,38 @@ export const NewCourseForm = (props) => {
         })
         .then(res => {
             if (res.ok) {
-                res.json().then((data) => console.log(data));
+                res.json()
+                .then((data) => setNewCourse(data))
+                .then(resetForm());
             } else {
                 res.json().then((errorData) => setErrors(errorData.errors));
             }
         })
         .catch(error => console.log(error))
       }
+
+    const resetForm = () => {
+        setTitle('');
+        setSource('');
+        setCategory('');
+    }
+
+    const renderNewCoursePreview = () => {
+        if (Object.keys(newCourse).length > 0) {
+            return (
+                <div>
+                    <h1>Course created!</h1>
+                    <CoursePreview 
+                    courseData={newCourse} 
+                    updateUserCourses={props.updateUserCourses} 
+                    updateUserState={props.updateUserState}
+                    user_courses={props.user_courses}
+                    setUserData={props.setUserData}
+                    />
+                </div>
+            )
+        }
+    }
 
     return (
         <div>
@@ -97,6 +124,7 @@ export const NewCourseForm = (props) => {
                 </Form.Group>
                 <Button onClick={createCourse}>Submit</Button>
             </Form>  
+            {renderNewCoursePreview()}
         </div>
     )
 }

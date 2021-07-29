@@ -9,6 +9,6 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   post "/save", to: "courses#save"
   delete "/logout", to: "sessions#destroy"
-  delete "/unsave", to: "courses#unsave"
+  post "/unsave", to: "courses#unsave"
   
 end
