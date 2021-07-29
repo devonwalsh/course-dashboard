@@ -210,6 +210,9 @@ class App extends Component {
                 categoryDropdown={this.state.categoryDropdown}
                 sources={this.state.all_sources} 
                 sourceDropdown={this.state.sourceDropdown}
+                updateUserState={this.updateUserState}
+                user_courses={this.state.user_courses} 
+                setUserData={this.setUserData}
               />
             }/>
           </Switch>

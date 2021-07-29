@@ -10,6 +10,9 @@ export const NewCoursePage = (props) => {
                 categoryDropdown={props.categoryDropdown}
                 sources={props.sources} 
                 sourceDropdown={props.sourceDropdown}
+                updateUserState={props.updateUserState}
+                user_courses={props.user_courses} 
+                setUserData={props.setUserData}
             />
         </div>
     )
