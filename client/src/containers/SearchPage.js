@@ -8,6 +8,9 @@ export const SearchPage = (props) => {
             <SearchForm
                 categoryDropdown={props.categoryDropdown}
                 all_courses={props.all_courses}
+                user_courses={props.user_courses}
+                updateUserState={props.updateUserState}
+                setUserData={props.setUserData}
             />
         </div>
     )

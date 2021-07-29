@@ -35,7 +35,14 @@ export const SearchForm = (props) => {
         if (Object.keys(results).length > 0) {
             return (
                 <div>
-                {results.map((course, idx) => <CoursePreview key={idx} courseData={course} courses={props.all_courses} />)}
+                {results.map((course, idx) => 
+                    <CoursePreview 
+                        key={idx} 
+                        courseData={course} 
+                        user_courses={props.user_courses} 
+                        updateUserState={props.updateUserState}
+                        setUserData={props.setUserData}
+                    />)}
                 </div>
             )
         }
@@ -56,6 +63,7 @@ export const SearchForm = (props) => {
                 />
                 <Form.Select
                     fluid
+                    clearable
                     label='Category'
                     options={props.categoryDropdown}
                     placeholder="Select..."

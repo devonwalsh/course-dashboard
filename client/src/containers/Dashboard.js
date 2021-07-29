@@ -10,8 +10,9 @@ export const Dashboard = (props) => {
                 props.user_categories.map((item, idx) => 
                     <CourseList 
                         key={idx} 
-                        category={item} w
-                        courses={props.user_courses.filter(course => course.category === item)} 
+                        category={item}
+                        user_courses={props.user_courses}
+                        display_courses={props.display_courses.filter(course => course.category === item)} 
                         updateUserState={props.updateUserState}
                         setUserData={props.setUserData}
                     />

@@ -34,7 +34,7 @@ export const CoursePreview = (props) => {
     }
 
     const renderSaveButton = (course_id) => {
-        let course_saved = props.courses.find(item =>  item.id === course_id)
+        let course_saved = props.user_courses.find(item =>  item.id === course_id)
 
         if (course_saved) {
             return (<Button onClick={() => unsaveCourse(course_id)}>Unsave</Button>)
