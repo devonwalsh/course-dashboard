@@ -157,9 +157,11 @@ class App extends Component {
   }
 
   updateUserState = (data) => {
-    const updatedCategories = [...this.state.user_categories, data.category]
+    const currentCategories = this.state.user_categories
+    const updatedCategories = currentCategories.includes(data.category) ? currentCategories : currentCategories.push(data.category)
     const sortedCategories = updatedCategories.sort();
-    const updatedSources = [...this.state.user_sources, data.source]
+    const currentSources = this.state.user_sources
+    const updatedSources = currentSources.includes(data.source) ? currentSources : currentSources.push(data.source)
     const sortedSources = updatedSources.sort();
     this.setState({
       user_courses: [...this.state.user_courses, data], 
@@ -178,8 +180,10 @@ class App extends Component {
           <Switch>
             <Route exact path="/" render={() => 
               <Dashboard 
-                user_categories={this.state.user_categories} 
+                user_categories={this.state.user_categories}
+                all_courses={this.state.all_courses}
                 user_courses={this.state.user_courses} 
+                display_courses={this.state.user_courses}
                 updateUserState={this.updateUserState}
                 setUserData={this.setUserData}
               />
@@ -189,12 +193,19 @@ class App extends Component {
                 user_categories={this.state.user_categories}
                 all_courses={this.state.all_courses}
                 user_courses={this.state.user_courses} 
+                display_courses={this.state.all_courses}
                 updateUserState={this.updateUserState}
                 setUserData={this.setUserData}
               />
             }/>
             <Route exact path="/search" render={() => 
-              <SearchPage/>
+              <SearchPage
+                categoryDropdown={this.state.categoryDropdown}
+                all_courses={this.state.all_courses}
+                user_courses={this.state.user_courses}
+                updateUserState={this.updateUserState}
+                setUserData={this.setUserData}
+              />
             }/>
             <Route exact path="/signup-page" render={() => 
               <SignupPage 

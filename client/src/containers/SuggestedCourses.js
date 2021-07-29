@@ -23,7 +23,8 @@ export const SuggestedCourses = (props) => {
                     <CourseList 
                         key={idx} 
                         category={item}
-                        courses={props.all_courses.filter(course => course.category.name === item)} 
+                        user_courses={props.user_courses}
+                        display_courses={props.display_courses.filter(course => course.category.name === item)} 
                         updateUserState={props.updateUserState}
                         setUserData={props.setUserData}
                     />
