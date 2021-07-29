@@ -1,5 +1,6 @@
 import React from 'react'
 import { Card, Button } from 'semantic-ui-react';
+import { NavLink } from 'react-router-dom';
 
 export const CoursePreview = (props) => {
 
@@ -33,7 +34,7 @@ export const CoursePreview = (props) => {
     }
 
     const renderSaveButton = (course_id) => {
-        let course_saved = props.user_courses.find(item =>  item.id === course_id)
+        let course_saved = props.courses.find(item =>  item.id === course_id)
 
         if (course_saved) {
             return (<Button onClick={() => unsaveCourse(course_id)}>Unsave</Button>)
@@ -68,6 +69,7 @@ export const CoursePreview = (props) => {
             <Card>
                 {props.courseData.title}
                 <br/>
+                <Button as={NavLink} exact to={`/courses/${props.courseData.id}`}>View Details</Button>
                 {renderSaveButton(props.courseData.id)}
             </Card>
         </div>

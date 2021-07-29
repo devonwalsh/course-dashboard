@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { CoursePreview } from '../components/CoursePreview';
+import { CourseList } from './CourseList';
 
 export const SuggestedCourses = (props) => {
 
@@ -17,13 +17,14 @@ export const SuggestedCourses = (props) => {
 
     return (
         <div>
+            <h1>Your Suggested Courses</h1>
             {
-                courses.map((item, idx) => 
-                    <CoursePreview 
+                props.user_categories.map((item, idx) => 
+                    <CourseList 
                         key={idx} 
-                        courseData={item} 
+                        category={item}
+                        courses={props.all_courses.filter(course => course.category.name === item)} 
                         updateUserState={props.updateUserState}
-                        user_courses={props.user_courses}
                         setUserData={props.setUserData}
                     />
                 )
