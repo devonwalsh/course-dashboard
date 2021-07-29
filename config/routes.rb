@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get "/courses", to: "courses#index"
   get "/user_courses", to: "courses#user_courses"
   get "/categories", to: "categories#index"
+  post "/search", to: "courses#search"
   post "/signup", to: "users#create"
   post "/login", to: "sessions#create"
   post "/save", to: "courses#save"

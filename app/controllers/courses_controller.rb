@@ -36,10 +36,15 @@ class CoursesController < ApplicationController
         render json: categories_with_courses
     end
 
+    def search
+        results = Course.all.where("LOWER(title) LIKE ? AND LOWER(source) LIKE ?", "%#{course_params[:title]}%", "%#{course_params[:source]}%")
+        render json: results
+    end
+
     private
 
     def course_params
-        params.permit(:id, :title, :source, :category_id)
+        params.permit(:id, :title, :source, :category_id, :title, :source, :course)
     end
 
 end
