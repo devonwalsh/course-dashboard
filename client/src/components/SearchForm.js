@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
-import { Search, Form, Button } from 'semantic-ui-react';
+import { Form, Button } from 'semantic-ui-react';
+import { CoursePreview } from './CoursePreview';
 
-export const SearchForm = () => {
+export const SearchForm = (props) => {
 
     const [title, setTitle] = useState('')
     const [source, setSource] = useState('')
     const [category, setCategory] = useState('')
+    const [results, setResults] = useState([]);
 
     const handleSubmit = () => {
         fetch(`/search`, {
@@ -16,17 +18,27 @@ export const SearchForm = () => {
             body: JSON.stringify({
                 title: title.toLowerCase(),
                 source: source.toLowerCase(),
-                category: category
+                category_id: category
             })
         })
         .then(res => {
             if (res.ok) {
-                res.json().then((data) => console.log(data));
+                res.json().then((data) => setResults(data));
             } else {
                 res.json().then((errorData) => console.log(errorData.errors));
             }
         })
         .catch(error => console.log(error))
+    }
+
+    const displayResults = () => {
+        if (Object.keys(results).length > 0) {
+            return (
+                <div>
+                {results.map((course, idx) => <CoursePreview key={idx} courseData={course} courses={props.all_courses} />)}
+                </div>
+            )
+        }
     }
 
     return (
@@ -42,13 +54,17 @@ export const SearchForm = () => {
                     value={source} 
                     onChange={e => setSource(e.target.value)}
                 />
-                <Form.Input 
-                    label="Category"
-                    value={category} 
-                    onChange={e => setCategory(e.target.value)}
+                <Form.Select
+                    fluid
+                    label='Category'
+                    options={props.categoryDropdown}
+                    placeholder="Select..."
+                    value={category}
+                    onChange={(e, { value }) => setCategory({ value }.value)}
                 />
                 <Button onClick={() => handleSubmit()}>Submit</Button>
             </Form>
+            {displayResults()}
         </div>
     )
 }

@@ -194,7 +194,10 @@ class App extends Component {
               />
             }/>
             <Route exact path="/search" render={() => 
-              <SearchPage/>
+              <SearchPage
+                categoryDropdown={this.state.categoryDropdown}
+                all_courses={this.state.all_courses}
+              />
             }/>
             <Route exact path="/signup-page" render={() => 
               <SignupPage 

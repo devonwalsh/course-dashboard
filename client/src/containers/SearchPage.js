@@ -1,11 +1,14 @@
 import React from 'react'
 import { SearchForm } from '../components/SearchForm';
 
-export const SearchPage = () => {
+export const SearchPage = (props) => {
     return (
         <div>
             <h1>Search Courses</h1>
-            <SearchForm/>
+            <SearchForm
+                categoryDropdown={props.categoryDropdown}
+                all_courses={props.all_courses}
+            />
         </div>
     )
 }
