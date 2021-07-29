@@ -8,6 +8,7 @@ import { Login } from './containers/Login';
 import { SuggestedCourses } from './containers/SuggestedCourses';
 import { SearchPage } from './containers/SearchPage';
 import { NewCoursePage } from './containers/NewCoursePage';
+import CourseDetails  from './containers/CourseDetails';
 
 class App extends Component {
 
@@ -185,8 +186,10 @@ class App extends Component {
             }/>
             <Route exact path="/suggestions" render={() => 
               <SuggestedCourses 
-                updateUserState={this.updateUserState}
+                user_categories={this.state.user_categories}
+                all_courses={this.state.all_courses}
                 user_courses={this.state.user_courses} 
+                updateUserState={this.updateUserState}
                 setUserData={this.setUserData}
               />
             }/>
@@ -213,6 +216,12 @@ class App extends Component {
                 updateUserState={this.updateUserState}
                 user_courses={this.state.user_courses} 
                 setUserData={this.setUserData}
+              />
+            }/>
+            <Route exact path="/courses/:courseId" render={(props) => 
+              <CourseDetails 
+                all_courses={this.state.all_courses}
+                user_courses={this.state.user_courses}
               />
             }/>
           </Switch>
