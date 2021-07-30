@@ -53,7 +53,7 @@ class CoursesController < ApplicationController
     private
 
     def course_params
-        params.permit(:id, :title, :source, :category_id, :title, :source, :category_id, :course)
+        params.permit(:id, :title, :source, :category_id, :title, :category_id, :progress, :course)
     end
 
 end

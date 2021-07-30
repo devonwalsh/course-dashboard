@@ -155,8 +155,16 @@ class App extends Component {
     })
   }
 
-  addNewCourse = (new_course) => {
-    this.setState({all_courses: [...this.state.all_courses, new_course]})
+  addNewCourse = (newCourse) => {
+    this.setState({all_courses: [...this.state.all_courses, newCourse]})
+  }
+
+  updateProgress = (courseId, updatedCourse) => {
+    let course = this.state.user_courses.find(course => course.id == courseId)
+    let filteredCourses = this.state.user_courses.filter(course => course.id != courseId)
+    course.progress = updatedCourse.progress
+    let updatedCourses = [...filteredCourses, course]
+    this.setState({...this.state, user_courses: updatedCourses})
   }
 
   render() {
@@ -221,6 +229,7 @@ class App extends Component {
                 <CourseDetails 
                   all_courses={this.state.all_courses}
                   user_courses={this.state.user_courses}
+                  updateProgress={this.updateProgress}
                 />
               }/>
             </Switch>
