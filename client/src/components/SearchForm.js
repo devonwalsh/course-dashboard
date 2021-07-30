@@ -41,7 +41,7 @@ export const SearchForm = (props) => {
                         courseData={course} 
                         user_courses={props.user_courses} 
                         updateUserState={props.updateUserState}
-                        setUserData={props.setUserData}
+                        populateUserCourseData={props.populateUserCourseData}
                     />)}
                 </div>
             )

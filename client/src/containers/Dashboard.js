@@ -14,7 +14,7 @@ export const Dashboard = (props) => {
                         user_courses={props.user_courses}
                         display_courses={props.display_courses.filter(course => course.category === item)} 
                         updateUserState={props.updateUserState}
-                        setUserData={props.setUserData}
+                        populateUserCourseData={props.populateUserCourseData}
                     />
                 )
             }

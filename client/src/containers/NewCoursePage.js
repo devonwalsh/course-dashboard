@@ -9,11 +9,10 @@ export const NewCoursePage = (props) => {
                 categories={props.categories} 
                 updateCategories={props.updateCategories} 
                 categoryDropdown={props.categoryDropdown}
-                sources={props.sources} 
-                sourceDropdown={props.sourceDropdown}
                 updateUserState={props.updateUserState}
                 user_courses={props.user_courses} 
-                setUserData={props.setUserData}
+                populateUserCourseData={props.populateUserCourseData}
+                addNewCourse={props.addNewCourse}
             />
         </div>
     )
