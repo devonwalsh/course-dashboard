@@ -26,7 +26,7 @@ export const SuggestedCourses = (props) => {
                         user_courses={props.user_courses}
                         display_courses={props.display_courses.filter(course => course.category.name === item)} 
                         updateUserState={props.updateUserState}
-                        setUserData={props.setUserData}
+                        populateUserCourseData={props.populateUserCourseData}
                     />
                 )
             }

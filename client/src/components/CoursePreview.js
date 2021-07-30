@@ -56,7 +56,7 @@ export const CoursePreview = (props) => {
         })
         .then(res => {
             if (res.ok) {
-                res.json().then((data) => props.setUserData(data));
+                res.json().then((data) => props.populateUserCourseData(data));
             } else {
                 res.json().then((errorData) => console.log(errorData.errors));
             }

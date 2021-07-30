@@ -25,7 +25,7 @@ export const NewCourseForm = (props) => {
         })
         .then(res => {
             if (res.ok) {
-                res.json().then((data) => props.updateCategories(data.name));
+                res.json().then((data) => props.updateCategories(data));
             } else {
                 res.json().then((errorData) => setErrors(errorData.errors));
             }
@@ -55,7 +55,7 @@ export const NewCourseForm = (props) => {
         .then(res => {
             if (res.ok) {
                 res.json()
-                .then((data) => setNewCourse(data))
+                .then((data) => saveNewCourseToState(data))
                 .then(resetForm());
             } else {
                 res.json().then((errorData) => setErrors(errorData.errors));
@@ -70,6 +70,11 @@ export const NewCourseForm = (props) => {
         setCategory('');
     }
 
+    const saveNewCourseToState = (data) => {
+        setNewCourse(data);
+        props.addNewCourse(data);
+    }
+
     const renderNewCoursePreview = () => {
         if (Object.keys(newCourse).length > 0) {
             return (
@@ -80,7 +85,7 @@ export const NewCourseForm = (props) => {
                     updateUserCourses={props.updateUserCourses} 
                     updateUserState={props.updateUserState}
                     user_courses={props.user_courses}
-                    setUserData={props.setUserData}
+                    populateUserCourseData={props.populateUserCourseData}
                     />
                 </div>
             )

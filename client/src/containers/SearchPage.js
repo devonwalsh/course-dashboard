@@ -10,7 +10,7 @@ export const SearchPage = (props) => {
                 all_courses={props.all_courses}
                 user_courses={props.user_courses}
                 updateUserState={props.updateUserState}
-                setUserData={props.setUserData}
+                populateUserCourseData={props.populateUserCourseData}
             />
         </div>
     )
