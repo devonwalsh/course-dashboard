@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Button } from 'semantic-ui-react';
+import { Card, Button, Progress } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 
 export const CoursePreview = (props) => {
@@ -68,6 +68,8 @@ export const CoursePreview = (props) => {
         <div>
             <Card>
                 {props.courseData.title}
+                <br/>
+                {!props.courseData.progress ? null : <Progress percent={props.courseData.progress} color="blue"/>}
                 <br/>
                 <Button as={NavLink} exact to={`/courses/${props.courseData.id}`}>View Details</Button>
                 {renderSaveButton(props.courseData.id)}

@@ -3,6 +3,6 @@ import { LoginForm } from '../components/LoginForm';
 
 export const Login = (props) => {
     return (
-            <LoginForm manageLogin={props.manageLogin}/>
+            <LoginForm manageLogin={props.manageLogin} redirectToHome={props.redirectToHome}/>
     )
 }

@@ -31,7 +31,9 @@ export const LoginForm = (props) => {
         })
         .then(res => {
             if (res.ok) {
-                res.json().then((data) => props.manageLogin(data));
+                res.json()
+                .then((data) => props.manageLogin(data))
+                .then(props.redirectToHome())
             } else {
                 res.json().then((errorData) => setErrors([errorData.errors]));
             }

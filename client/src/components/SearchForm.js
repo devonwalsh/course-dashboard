@@ -8,6 +8,11 @@ export const SearchForm = (props) => {
     const [source, setSource] = useState('')
     const [category, setCategory] = useState('')
     const [results, setResults] = useState([]);
+    const [dummyOptions] = useState([{
+        "key": '', 
+        "text": '',
+        "value": null
+    }]);
 
     const handleSubmit = () => {
         fetch(`/search`, {
@@ -65,7 +70,7 @@ export const SearchForm = (props) => {
                     fluid
                     clearable
                     label='Category'
-                    options={props.categoryDropdown}
+                    options={Object.keys(props.categoryDropdown).length === 0 ? dummyOptions : props.categoryDropdown}
                     placeholder="Select..."
                     value={category}
                     onChange={(e, { value }) => setCategory({ value }.value)}

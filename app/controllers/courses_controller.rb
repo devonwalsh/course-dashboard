@@ -5,6 +5,15 @@ class CoursesController < ApplicationController
         render json: courses, include: :users
     end
 
+    def show
+        user = User.find_by(id: session[:user_id])
+        course = User.
+        select("users.id AS user_id, categories.name as category, courses.id AS id, courses.title, courses.source, registrations.progress").
+        joins(:categories).
+        where("users.id = '#{user.id}' AND courses.id = '#{course_params[:id]}'")
+        render json: course
+    end
+
     def user_courses
         user = User.find_by(id: session[:user_id])
         categories_with_courses = User.
@@ -53,7 +62,7 @@ class CoursesController < ApplicationController
     private
 
     def course_params
-        params.permit(:id, :title, :source, :category_id, :title, :source, :category_id, :course)
+        params.permit(:id, :title, :source, :category_id, :title, :category_id, :progress, :course)
     end
 
 end
