@@ -1,11 +1,9 @@
 Rails.application.routes.draw do
-  resources :courses, :categories, :lessons, :users
+  resources :courses, :categories, :lessons, :registrations, :users
 
   get "/me", to: "users#show"
-  get "/courses", to: "courses#index"
   get "/user_courses", to: "courses#user_courses"
-  get "/categories", to: "categories#index"
-  post "/progress", to: "courses#progress"
+  patch "/progress", to: "courses#progress"
   post "/search", to: "courses#search"
   post "/signup", to: "users#create"
   post "/login", to: "sessions#create"
