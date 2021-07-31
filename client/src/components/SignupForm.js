@@ -38,7 +38,9 @@ export const SignupForm = (props) => {
         })
         .then(res => {
             if (res.ok) {
-                res.json().then((data) => props.manageLogin(data.username));
+                res.json()
+                .then((data) => props.manageLogin(data.username))
+                .then(props.redirectToHome())
             } else {
                 res.json().then((errorData) => setErrors(errorData.errors));
             }

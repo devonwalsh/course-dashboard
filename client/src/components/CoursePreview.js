@@ -69,7 +69,7 @@ export const CoursePreview = (props) => {
             <Card>
                 {props.courseData.title}
                 <br/>
-                <Progress percent={props.courseData.progress} color="blue"/>
+                {!props.courseData.progress ? null : <Progress percent={props.courseData.progress} color="blue"/>}
                 <br/>
                 <Button as={NavLink} exact to={`/courses/${props.courseData.id}`}>View Details</Button>
                 {renderSaveButton(props.courseData.id)}

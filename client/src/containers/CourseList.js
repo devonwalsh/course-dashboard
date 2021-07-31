@@ -1,6 +1,5 @@
 import React from 'react'
 import { Segment } from 'semantic-ui-react';
-import { CourseDetails } from './CourseDetails';
 import { CoursePreview } from '../components/CoursePreview';
 
 export const CourseList = (props) => {

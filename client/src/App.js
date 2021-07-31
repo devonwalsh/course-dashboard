@@ -20,7 +20,8 @@ class App extends Component {
     all_categories: [],
     user_courses: [],
     user_categories: [],
-    categoryDropdown: {}
+    categoryDropdown: {},
+    dataFetched: 0
   }
 
   /* Startup stuff */
@@ -44,18 +45,21 @@ class App extends Component {
     fetch('/courses')
     .then(res => res.json())
     .then(data => this.populateCourseData(data))
+    .then(this.setState({...this.state, dataFetched: this.state.dataFetched + 1}))
   }
 
   getCategoryData = () => {
     fetch('/categories')
     .then(res => res.json())
     .then(data => this.populateCategoryData(data))
+    .then(this.setState({...this.state, dataFetched: this.state.dataFetched + 1}))
   }
 
   getUserCourseData = () => {
     fetch('/user_courses')
     .then(res => res.json())
     .then(data => this.populateUserCourseData(data))
+    .then(this.setState({...this.state, dataFetched: this.state.dataFetched + 1}))
   }
 
   populateCourseData = (data) => {
@@ -64,7 +68,7 @@ class App extends Component {
     data.map(item => source_list.includes(item.source) ? null : source_list.push(item.source))
     source_list.sort();
 
-    this.setState({all_courses: data})
+    this.setState({...this.state, all_courses: data})
 
   }
 
@@ -74,7 +78,7 @@ class App extends Component {
     data.map(item => category_list.includes(item.name) ? null : category_list.push(item.name))
     category_list.sort();
 
-    this.setState({all_categories: category_list})
+    this.setState({...this.state, all_categories: category_list})
     this.populateCategoryDropdown(data);
 
   }
@@ -89,8 +93,8 @@ class App extends Component {
     data.map(item => source_list.includes(item.source) ? null : source_list.push(item.source))
     source_list.sort();
 
-    this.setState({user_courses: data})
-    this.setState({user_categories: category_list})
+    this.setState({...this.state, user_courses: data})
+    this.setState({...this.state, user_categories: category_list})
 
   }
 
@@ -105,31 +109,35 @@ class App extends Component {
       return (a < b) ? -1 : (a > b) ? 1 : 0;
     })
 
-    this.setState({categoryDropdown: categoryObject})
+    this.setState({...this.state, categoryDropdown: categoryObject})
   }
 
   /* User actions */
 
   manageLogin = (data) => {
     this.setState({
+      ...this.state,
       loggedIn: true, 
       username: data.username
     })
     this.getAllCourseData();
     this.getUserCourseData();
     this.getCategoryData();
+  }
+
+  redirectToHome = () => {
     this.props.history.push("/");
   }
 
   manageLogout = () => {
-    this.setState({loggedIn: false})
+    this.setState({...this.state, loggedIn: false})
     this.props.history.push("/")
   }
 
   updateCategories = (newCategory) => {
     const updatedCategories = [...this.state.all_categories, newCategory.name]
     const sortedCategories = updatedCategories.sort();
-    this.setState({all_categories: sortedCategories});
+    this.setState({...this.state, all_categories: sortedCategories});
 
     const newDropdownItem = Object.assign({}, {"key": newCategory.id, "text": newCategory.name, "value": newCategory.id})
     const updatedCategoryDropdown = [...this.state.categoryDropdown, newDropdownItem]
@@ -140,7 +148,7 @@ class App extends Component {
       return (a < b) ? -1 : (a > b) ? 1 : 0;
     })
 
-    this.setState({categoryDropdown: sortedCategoryDropdown})
+    this.setState({...this.state, categoryDropdown: sortedCategoryDropdown})
   }
 
   updateUserState = (data) => {
@@ -156,7 +164,7 @@ class App extends Component {
   }
 
   addNewCourse = (newCourse) => {
-    this.setState({all_courses: [...this.state.all_courses, newCourse]})
+    this.setState({...this.state, all_courses: [...this.state.all_courses, newCourse]})
   }
 
   updateProgress = (courseId, updatedCourse) => {
@@ -177,6 +185,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" render={() => 
                 <Dashboard 
+                  loggedIn={this.state.loggedIn} 
                   user_categories={this.state.user_categories}
                   all_courses={this.state.all_courses}
                   user_courses={this.state.user_courses} 
@@ -187,6 +196,7 @@ class App extends Component {
               }/>
               <Route exact path="/suggestions" render={() => 
                 <SuggestedCourses 
+                  loggedIn={this.state.loggedIn} 
                   user_categories={this.state.user_categories}
                   all_courses={this.state.all_courses}
                   user_courses={this.state.user_courses} 
@@ -197,6 +207,7 @@ class App extends Component {
               }/>
               <Route exact path="/search" render={() => 
                 <SearchPage
+                  loggedIn={this.state.loggedIn} 
                   categoryDropdown={this.state.categoryDropdown}
                   all_courses={this.state.all_courses}
                   user_courses={this.state.user_courses}
@@ -207,15 +218,18 @@ class App extends Component {
               <Route exact path="/signup-page" render={() => 
                 <SignupPage 
                   manageLogin={this.manageLogin}
+                  redirectToHome={this.redirectToHome}
                 />
               }/>
               <Route exact path="/login" render={() => 
                 <Login 
                   manageLogin={this.manageLogin}
+                  redirectToHome={this.redirectToHome}
                 />
               }/>
               <Route exact path="/newcourse" render={() => 
                 <NewCoursePage 
+                loggedIn={this.state.loggedIn} 
                   categories={this.state.all_categories} 
                   updateCategories={this.updateCategories} 
                   categoryDropdown={this.state.categoryDropdown}
@@ -227,9 +241,11 @@ class App extends Component {
               }/>
               <Route exact path="/courses/:courseId" render={(props) => 
                 <CourseDetails 
+                  loggedIn={this.state.loggedIn} 
                   all_courses={this.state.all_courses}
                   user_courses={this.state.user_courses}
                   updateProgress={this.updateProgress}
+                  dataFetched={this.state.dataFetched}
                 />
               }/>
             </Switch>

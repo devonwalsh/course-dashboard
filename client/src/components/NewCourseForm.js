@@ -11,6 +11,11 @@ export const NewCourseForm = (props) => {
     const [category, setCategory] = useState('');
     const [errors, setErrors] = useState([]);
     const [newCourse, setNewCourse] = useState({});
+    const [dummyOptions] = useState([{
+        "key": '', 
+        "text": '',
+        "value": null
+    }])
 
     const addCategory = (e) => {
         e.preventDefault();
@@ -113,7 +118,7 @@ export const NewCourseForm = (props) => {
                 <Form.Select
                     fluid
                     label='Category'
-                    options={props.categoryDropdown}
+                    options={Object.keys(props.categoryDropdown).length === 0 ? dummyOptions : props.categoryDropdown}
                     placeholder="Select..."
                     value={category}
                     onChange={(e, { value }) => setCategory({ value }.value)}
