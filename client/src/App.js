@@ -20,8 +20,8 @@ class App extends Component {
     all_categories: [],
     user_courses: [],
     user_categories: [],
-    categoryDropdown: {},
-    dataFetched: 0
+    user_registrations: [],
+    categoryDropdown: {}
   }
 
   /* Startup stuff */
@@ -45,21 +45,24 @@ class App extends Component {
     fetch('/courses')
     .then(res => res.json())
     .then(data => this.populateCourseData(data))
-    .then(this.setState({...this.state, dataFetched: this.state.dataFetched + 1}))
   }
 
   getCategoryData = () => {
     fetch('/categories')
     .then(res => res.json())
     .then(data => this.populateCategoryData(data))
-    .then(this.setState({...this.state, dataFetched: this.state.dataFetched + 1}))
+  }
+
+  getRegistrations = () => {
+    fetch('/registrations')
+    .then(res => res.json())
+    .then(data => this.setState({...this.state, user_registrations: data}))
   }
 
   getUserCourseData = () => {
     fetch('/user_courses')
     .then(res => res.json())
     .then(data => this.populateUserCourseData(data))
-    .then(this.setState({...this.state, dataFetched: this.state.dataFetched + 1}))
   }
 
   populateCourseData = (data) => {
@@ -123,6 +126,7 @@ class App extends Component {
     this.getAllCourseData();
     this.getUserCourseData();
     this.getCategoryData();
+    this.getRegistrations();
   }
 
   redirectToHome = () => {
@@ -245,7 +249,7 @@ class App extends Component {
                   all_courses={this.state.all_courses}
                   user_courses={this.state.user_courses}
                   updateProgress={this.updateProgress}
-                  dataFetched={this.state.dataFetched}
+                  user_registrations={this.state.user_registrations}
                 />
               }/>
             </Switch>

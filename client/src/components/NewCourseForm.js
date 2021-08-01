@@ -9,6 +9,7 @@ export const NewCourseForm = (props) => {
     const [title, setTitle] = useState('');
     const [source, setSource] = useState('');
     const [category, setCategory] = useState('');
+    const [description, setDescription] = useState('');
     const [errors, setErrors] = useState([]);
     const [newCourse, setNewCourse] = useState({});
     const [dummyOptions] = useState([{
@@ -54,7 +55,8 @@ export const NewCourseForm = (props) => {
             body: JSON.stringify({
                 title: title,
                 source: source,
-                category_id: category
+                category_id: category,
+                description: description
             })
         })
         .then(res => {
@@ -132,6 +134,13 @@ export const NewCourseForm = (props) => {
                     <Button onClick={toggleNewCategoryForm}>Add a New Category</Button>
                 }
                 </Form.Group>
+                <Form.Input
+                    fluid
+                    label='Description'
+                    id="description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                />
                 <Button onClick={createCourse}>Submit</Button>
             </Form>  
             {renderNewCoursePreview()}
