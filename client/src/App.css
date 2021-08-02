@@ -40,3 +40,66 @@
 .error-list {
   color: red;
 }
+
+.course-list {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  background-color: blue;
+}
+
+.course-preview.ui.card {
+  display: inline-block;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.search-form {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.new-course-form {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.search-results {
+  margin-top: 50px;
+  display: inline-block;
+}
+
+.footer {
+  margin-top: 50px;
+}
+
+.category-select {
+  width: 50%;
+}
+
+.new-category {
+  width: 50%;
+}
+
+.course-detail-headers {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.course-details-dates {
+  width: 50%;
+  display: inline-block;
+}
+
+.course-notes {
+  margin-bottom: 20px;
+}
+
+.page-container.ui.container {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  width: 75%;
+}

@@ -17,7 +17,7 @@ export const NavBar = (props) => {
 
         if (!props.loggedIn) {
             return (
-                <Menu>
+                <Menu inverted>
                     <Menu.Item as={NavLink} to="/login">Log In</Menu.Item>
                     <Menu.Item as={NavLink} to="/signup-page">Sign Up</Menu.Item>
                 </Menu>
@@ -25,7 +25,7 @@ export const NavBar = (props) => {
         }
         else {
             return (
-                <Menu>
+                <Menu inverted>
                     <Menu.Item as={NavLink} to="/">Home</Menu.Item>
                     <Menu.Item as={NavLink} to="/newcourse">Add a Course</Menu.Item>
                     <Menu.Item as={NavLink} to="/suggestions">Suggested Courses</Menu.Item>

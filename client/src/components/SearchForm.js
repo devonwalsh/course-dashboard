@@ -39,7 +39,7 @@ export const SearchForm = (props) => {
     const displayResults = () => {
         if (Object.keys(results).length > 0) {
             return (
-                <div>
+                <div className="search-results">
                 {results.map((course, idx) => 
                     <CoursePreview 
                         key={idx} 
@@ -54,7 +54,7 @@ export const SearchForm = (props) => {
     }
 
     return (
-        <div>
+        <div className="search-form">
             <Form>
                 <Form.Input 
                     label="Title"
@@ -75,7 +75,7 @@ export const SearchForm = (props) => {
                     value={category}
                     onChange={(e, { value }) => setCategory({ value }.value)}
                 />
-                <Button onClick={() => handleSubmit()}>Submit</Button>
+                <Button color="blue" onClick={() => handleSubmit()}>Submit</Button>
             </Form>
             {displayResults()}
         </div>

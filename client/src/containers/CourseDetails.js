@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom';
-import { Progress, Button, Form, Segment } from 'semantic-ui-react';
+import { Container, Progress, Button, Form, Segment } from 'semantic-ui-react';
 
 const CourseDetails = (props) => {
 
@@ -160,55 +160,68 @@ const CourseDetails = (props) => {
     }
     else {
             return (
-                <div>
+                <Container className="page-container">
                     <h1>{courseData.title}</h1>
-                    <h3>Source: {courseData.source}</h3>
-                    <h3>Category: {courseData.category}</h3>
-                    <Progress percent={courseData.progress} color="blue"/>
-                    {
-                        progressFormOpen ? 
-                        <Form>
-                            <Form.Input fluid id="progress-input" value={newProgress} onChange={(e) => setNewProgress(e.target.value)}/>
-                            <Button onClick={(e) => handleSubmitProgress(e)}>Submit</Button>
-                        </Form> : 
-                        <Button onClick={() => toggleProgressForm()}>Update Progress</Button>
-                    } 
+                    <Segment>
+                        <h3 className="course-detail-headers">Source: {courseData.source}</h3>
+                        <h3 className="course-detail-headers">Category: {courseData.category}</h3>
+                    </Segment>
+                    <Segment>
+                        <p>{courseData.progress > 0 ? courseData.progress : "0"}% completed</p>
+                        <Progress percent={courseData.progress} color="blue"/>
+                        {
+                            progressFormOpen ? 
+                            <Form>
+                                <Form.Input fluid id="progress-input" value={newProgress} onChange={(e) => setNewProgress(e.target.value)}/>
+                                <Button onClick={(e) => handleSubmitProgress(e)}>Submit</Button>
+                            </Form> : 
+                            <Button color="blue" onClick={() => toggleProgressForm()}>Update Progress</Button>
+                        } 
+                    </Segment>
                     <p>{courseData.description}</p>
-                    {
-                        startDateFormOpen ?
-                        <Form>
-                            <Form.Input value={newStartDate} onChange={e => setNewStartDate(e.target.value)}/>
-                            <Button onClick={(e) => handleSubmitStartDate(e)}>Submit</Button>
-                        </Form> :
-                        <div>
-                            <p>Date Started: {registrationData.start_date === null ? "TBD" : registrationData.start_date}</p>
-                            <Button onClick={() => toggleStartDateForm()}>Edit</Button>
+                    <Segment>
+                        <div className="course-details-dates">
+                            {
+                                startDateFormOpen ?
+                                <Form>
+                                    <Form.Input value={newStartDate} onChange={e => setNewStartDate(e.target.value)}/>
+                                    <Button color="blue" onClick={(e) => handleSubmitStartDate(e)}>Submit</Button>
+                                </Form> :
+                                <div>
+                                    <p>Date Started: {registrationData.start_date === null ? "TBD" : registrationData.start_date}</p>
+                                    <Button color="blue" onClick={() => toggleStartDateForm()}>Edit</Button>
+                                </div>
+                            }
                         </div>
-                    }
-                    {
-                        endDateFormOpen ?
-                        <Form>
-                            <Form.Input value={newEndDate} onChange={e => setNewEndDate(e.target.value)}/>
-                            <Button onClick={(e) => handleSubmitEndDate(e)}>Submit</Button>
-                        </Form> :
-                        <div>
-                            <p>Date Completed: {registrationData.end_date === null ? "TBD" : registrationData.end_date}</p>
-                            <Button onClick={() => toggleEndDateForm()}>Edit</Button>
+                        <div className="course-details-dates">
+                            {
+                                endDateFormOpen ?
+                                <Form>
+                                    <Form.Input value={newEndDate} onChange={e => setNewEndDate(e.target.value)}/>
+                                    <Button color="blue" onClick={(e) => handleSubmitEndDate(e)}>Submit</Button>
+                                </Form> :
+                                <div>
+                                    <p>Date Completed: {registrationData.end_date === null ? "TBD" : registrationData.end_date}</p>
+                                    <Button color="blue" onClick={() => toggleEndDateForm()}>Edit</Button>
+                                </div>
+                            }
                         </div>
-                    }
+                    </Segment>
                     {
                         notesFormOpen ?
                         <Form>
                             <Form.TextArea value={notes} onChange={e => setNotes(e.target.value)}/>
-                            <Button onClick={(e) => handleSubmitNotes(e)}>Submit</Button>
+                            <Button color="blue" onClick={(e) => handleSubmitNotes(e)}>Submit</Button>
                         </Form> :
                         <Segment>
-                            {notes}
+                            <div className="course-notes">
+                                {notes}
+                            </div>
                             <br/>
-                            <Button onClick={() => toggleNotesForm()}>Edit Notes</Button>
+                            <Button color="blue" onClick={() => toggleNotesForm()}>Edit Notes</Button>
                         </Segment>
                     }
-                </div>
+                </Container>
             )
         }
     }

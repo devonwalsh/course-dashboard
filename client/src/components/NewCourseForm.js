@@ -101,7 +101,7 @@ export const NewCourseForm = (props) => {
 
     return (
         <div>
-            <Form>
+            <Form className="new-course-form">
                 <Form.Input 
                     fluid 
                     label='Title' 
@@ -117,7 +117,7 @@ export const NewCourseForm = (props) => {
                     onChange={(e) => setSource(e.target.value)}
                 />
                 <Form.Group>
-                <Form.Select
+                <Form.Select className="category-select"
                     fluid
                     label='Category'
                     options={Object.keys(props.categoryDropdown).length === 0 ? dummyOptions : props.categoryDropdown}
@@ -127,21 +127,21 @@ export const NewCourseForm = (props) => {
                 />
                 {
                     newCategoryToggle ? 
-                    <Form>
+                    <Form className="new-category">
                         <Form.Input fluid label='Category Name' id="category-name" value={newCategory} onChange={(e) => setNewCategory(e.target.value)}/>
-                        <Form.Button onClick={(e) => addCategory(e)}>Submit</Form.Button>
+                        <Form.Button color="blue" onClick={(e) => addCategory(e)}>Submit</Form.Button>
                     </Form> : 
-                    <Button onClick={toggleNewCategoryForm}>Add a New Category</Button>
+                    <Button className="new-category" color="blue" onClick={toggleNewCategoryForm}>Add a New Category</Button>
                 }
                 </Form.Group>
-                <Form.Input
+                <Form.TextArea
                     fluid
                     label='Description'
                     id="description"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                 />
-                <Button onClick={createCourse}>Submit</Button>
+                <Button color="blue" onClick={createCourse}>Submit</Button>
             </Form>  
             {renderNewCoursePreview()}
         </div>
