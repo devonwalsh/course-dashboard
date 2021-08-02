@@ -4,12 +4,12 @@ import { CoursePreview } from '../components/CoursePreview';
 
 export const CourseList = (props) => {
     return (
-        <div>
-            <Segment>
-                {props.category}
+            <Segment className="course-list">
+                <h2>{props.category}</h2>
+                <br/>
                 {props.display_courses.map((item, idx) => 
                     <CoursePreview 
-                        key={idx} 
+                        key={idx}
                         courseData={item} 
                         updateUserCourses={props.updateUserCourses} 
                         updateUserState={props.updateUserState}
@@ -18,6 +18,5 @@ export const CourseList = (props) => {
                     />
                 )}
             </Segment>
-        </div>
     )
 }

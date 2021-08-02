@@ -37,10 +37,10 @@ export const CoursePreview = (props) => {
         let course_saved = props.user_courses.find(item =>  item.id === course_id)
 
         if (course_saved) {
-            return (<Button onClick={() => unsaveCourse(course_id)}>Unsave</Button>)
+            return (<Button color="red" onClick={() => unsaveCourse(course_id)}>Unsave</Button>)
         }
         else {
-            return <Button onClick={saveCourse}>Save</Button>
+            return <Button color="green" onClick={saveCourse}>Save</Button>
         }
     }
 
@@ -65,15 +65,21 @@ export const CoursePreview = (props) => {
     }
 
     return (
-        <div>
-            <Card>
-                {props.courseData.title}
-                <br/>
-                {!props.courseData.progress ? null : <Progress percent={props.courseData.progress} color="blue"/>}
-                <br/>
-                <Button as={NavLink} exact to={`/courses/${props.courseData.id}`}>View Details</Button>
-                {renderSaveButton(props.courseData.id)}
+            <Card className="course-preview">
+                <Card.Content>
+                    <h3>{props.courseData.title}</h3>
+                </Card.Content>
+                <Card.Content>
+                    <img src="../../online-learning.png" height="100" width="100"/>
+                </Card.Content>
+                <Card.Content>
+                    <p>{props.courseData.progress > 0 ? props.courseData.progress : "0"}%</p>
+                    {!props.courseData.progress ? <Progress percent="0" color="blue"/> : <Progress percent={props.courseData.progress} color="blue"/>}
+                </Card.Content>
+                <Card.Content>
+                    <Button as={NavLink} exact to={`/courses/${props.courseData.id}`}>View Details</Button>
+                    {renderSaveButton(props.courseData.id)}
+                </Card.Content>
             </Card>
-        </div>
     )
 }

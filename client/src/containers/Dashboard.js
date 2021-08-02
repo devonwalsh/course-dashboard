@@ -1,5 +1,6 @@
 import React from 'react'
 import { CourseList } from './CourseList';
+import { Container } from 'semantic-ui-react';
 
 export const Dashboard = (props) => {
 
@@ -9,7 +10,7 @@ export const Dashboard = (props) => {
 
     else {
         return (
-            <div>
+            <Container className="page-container">
                 <h1>Your Courses</h1>
                 {
                     props.user_categories.map((item, idx) => 
@@ -23,7 +24,7 @@ export const Dashboard = (props) => {
                         />
                     )
                 }
-            </div>
+            </Container>
         )
     }
 }
