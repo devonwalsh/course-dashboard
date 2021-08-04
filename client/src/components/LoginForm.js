@@ -42,7 +42,7 @@ export const LoginForm = (props) => {
     }
 
     return (
-        <div>
+        <div className="login-form">
         <Form onSubmit={handleSubmit}>
             <label>Name</label>
             <input type="text" id="name" value={username} onChange={changeName}/>

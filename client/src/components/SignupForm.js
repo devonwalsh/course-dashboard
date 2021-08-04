@@ -49,7 +49,7 @@ export const SignupForm = (props) => {
     }
 
     return (
-        <div>
+        <div className="signup-form">
         <Form onSubmit={handleSubmit}>
             <label>Name</label>
             <input type="text" id="name" value={username} onChange={changeName}/>

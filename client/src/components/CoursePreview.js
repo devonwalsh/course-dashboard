@@ -8,26 +8,25 @@ export const CoursePreview = (props) => {
         let course_saved = props.user_courses.find(item =>  item.course_id === course_id)
 
         if (course_saved) {
-            return (<Button color="red" onClick={() => unsaveCourse(course_id)}>Unsave</Button>)
+            return (<Button color="red" onClick={() => handleUnsave(course_id)}>Unsave</Button>)
         }
         else {
             return <Button color="green" onClick={() => props.saveCourse(props.courseData)}>Save</Button>
         }
     }
 
-    const unsaveCourse = (course_id) => {
-        fetch("/unsave", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                id: course_id
-            })
+    const handleUnsave = (course_id) => {
+
+        const registration = props.user_courses.find(course => course.course_id == course_id)
+
+        const updatedUserCourses = props.user_courses.filter(course => course.course_id != course_id)
+        
+        fetch(`/registrations/${registration.registration_id}`, {
+            method: "DELETE",
         })
         .then(res => {
             if (res.ok) {
-                res.json().then((data) => props.populateUserCourseData(data));
+                props.unsaveCourse(updatedUserCourses);
             } else {
                 res.json().then((errorData) => console.log(errorData.errors));
             }

@@ -10,7 +10,7 @@ const CourseDetails = (props) => {
     const [courseData, setCourseData] = useState({})
     const [categoryId, setCategoryId] = useState('')
     const [description, setDescription] = useState('')
-    const [progress, setProgress] = useState(0)
+    const [progress, setProgress] = useState(null)
     const [registeredCourse, setRegisteredCourse] = useState(false)
     const [registrationData, setRegistrationData] = useState({})
     const [progressFormOpen, setToggleProgressFormOpen] = useState(false);
@@ -24,7 +24,11 @@ const CourseDetails = (props) => {
 
     useEffect(() => {
         getCourse()
-    }, []);
+    }, [props.user_courses]);
+
+    useEffect(() => {
+        getRegistration()
+    }, [props.user_courses]);
 
     const getCourse = () => {
         fetch(`/courses/${props.match.params.id}`)
@@ -40,7 +44,7 @@ const CourseDetails = (props) => {
     }
 
     const getRegistration = () => {
-        const registration = props.user_courses.find(item => item.course_id == props.match.params.id)
+        const registration = props.user_courses.find(item => item.course_id == parseInt(props.match.params.id))
 
         if (registration) {
 
@@ -176,8 +180,9 @@ const CourseDetails = (props) => {
     }
 
     const handleSave = (courseData) => {
-        props.saveCourse(courseData);
-        setRegisteredCourse(true);
+        props.saveCourse({
+            course_id: courseData.id
+        });
     }
 
     if (!props.loggedIn) {
@@ -201,7 +206,7 @@ const CourseDetails = (props) => {
                         registeredCourse ?
                         <div>
                             <Segment>
-                                <p>{progress}% completed</p>
+                                <p>{progress === null ? "0" : progress}% completed</p>
                                 <Progress percent={progress} color="blue"/>
                                 {
                                     progressFormOpen ? 

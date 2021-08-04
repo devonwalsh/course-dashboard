@@ -140,8 +140,28 @@ class App extends Component {
   }
 
   manageLogout = () => {
-    this.setState({...this.state, loggedIn: false})
+
+    fetch('/logout', {
+      method: "DELETE",
+      headers: {
+          "Content-Type": "application/json"
+      }
+    })
+    .then(() => this.clearState())
+    
     this.props.history.push("/")
+  
+  }
+
+  clearState = () => {
+    this.setState({
+      loggedIn: false,
+      all_courses: [],
+      all_categories: [],
+      user_courses: [],
+      user_categories: [],
+      categoryDropdown: {}
+    })
   }
 
   updateCategories = (newCategory) => {
@@ -177,6 +197,14 @@ class App extends Component {
     this.setState({...this.state, all_courses: [...this.state.all_courses, newCourse]})
   }
 
+  unsaveCourse = (data) => {
+    let category_list = [];
+    data.map(item => category_list.includes(item.category_name) ? null : category_list.push(item.category_name))
+    category_list.sort();
+
+    this.setState({...this.state, user_courses: data, user_categories: category_list})
+  }
+
   saveCourse = (courseData) => {
     fetch("/registrations", {
         method: "POST",
@@ -210,8 +238,8 @@ class App extends Component {
 }
 
   updateProgress = (courseId, updatedCourse) => {
-    let course = this.state.user_courses.find(course => course.id == courseId)
-    let filteredCourses = this.state.user_courses.filter(course => course.id != courseId)
+    let course = this.state.user_courses.find(course => course.course_id == courseId)
+    let filteredCourses = this.state.user_courses.filter(course => course.course_id != courseId)
     course.progress = updatedCourse.progress
     let updatedCourses = [...filteredCourses, course]
     this.setState({...this.state, user_courses: updatedCourses})
@@ -235,6 +263,7 @@ class App extends Component {
                   updateUserState={this.updateUserState}
                   populateUserCourseData={this.populateUserCourseData}
                   saveCourse={this.saveCourse}
+                  unsaveCourse={this.unsaveCourse}
                 />
               }/>
               <Route exact path="/suggestions" render={() => 
@@ -247,6 +276,7 @@ class App extends Component {
                   updateUserState={this.updateUserState}
                   populateUserCourseData={this.populateUserCourseData}
                   saveCourse={this.saveCourse}
+                  unsaveCourse={this.unsaveCourse}
                 />
               }/>
               <Route exact path="/search" render={() => 
@@ -258,6 +288,7 @@ class App extends Component {
                   updateUserState={this.updateUserState}
                   populateUserCourseData={this.populateUserCourseData}
                   saveCourse={this.saveCourse}
+                  unsaveCourse={this.unsaveCourse}
                 />
               }/>
               <Route exact path="/signup" render={() => 
@@ -283,6 +314,7 @@ class App extends Component {
                   populateUserCourseData={this.populateUserCourseData}
                   addNewCourse={this.addNewCourse}
                   saveCourse={this.saveCourse}
+                  unsaveCourse={this.unsaveCourse}
                 />
               }/>
               <Route path="/courses/:id" render={(props) => 

@@ -18,6 +18,7 @@ export const NewCoursePage = (props) => {
                     populateUserCourseData={props.populateUserCourseData}
                     addNewCourse={props.addNewCourse}
                     saveCourse={props.saveCourse}
+                    unsaveCourse={props.unsaveCourse}
                 />
             </div>
         )

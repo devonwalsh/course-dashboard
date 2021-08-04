@@ -16,6 +16,7 @@ export const CourseList = (props) => {
                         user_courses={props.user_courses}
                         populateUserCourseData={props.populateUserCourseData}
                         saveCourse={props.saveCourse}
+                        unsaveCourse={props.unsaveCourse}
                     />
                 )}
             </Segment>

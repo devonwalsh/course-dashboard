@@ -27,6 +27,9 @@ class RegistrationsController < ApplicationController
     end
 
     def destroy
+        registration = Registration.find_by(id: registration_params[:id])
+        registration.destroy
+        head :no_content
     end
 
     private

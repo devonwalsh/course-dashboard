@@ -16,6 +16,7 @@ export const SearchPage = (props) => {
                     updateUserState={props.updateUserState}
                     populateUserCourseData={props.populateUserCourseData}
                     saveCourse={props.saveCourse}
+                    unsaveCourse={props.unsaveCourse}
                 />
             </div>
         )

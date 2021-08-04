@@ -22,6 +22,7 @@ export const SuggestedCourses = (props) => {
                             updateUserState={props.updateUserState}
                             populateUserCourseData={props.populateUserCourseData}
                             saveCourse={props.saveCourse}
+                            unsaveCourse={props.unsaveCourse}
                         />
                     )
                 }
