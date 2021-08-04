@@ -78,7 +78,7 @@ export const CoursePreview = (props) => {
                 </Card.Content>
                 <Card.Content>
                     <Button as={NavLink} exact to={`/courses/${props.courseData.course_id}`}>View Details</Button>
-                    {renderSaveButton(props.courseData.id)}
+                    {renderSaveButton(props.courseData.course_id)}
                 </Card.Content>
             </Card>
     )

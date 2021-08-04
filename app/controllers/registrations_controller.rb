@@ -19,6 +19,16 @@ class RegistrationsController < ApplicationController
         render json: registration
     end
 
+    def create
+        user = User.find_by(id: session[:user_id])
+        registration = Registration.create(registration_params)
+        user.registrations << registration
+        render json: registration, status: :created
+    end
+
+    def destroy
+    end
+
     private
 
     def registration_params

@@ -62,16 +62,9 @@ class App extends Component {
     .then(data => this.populateCategoryData(data))
   }
 
-  // getRegistrations = () => {
-  //   fetch('/registrations')
-  //   .then(res => res.json())
-  //   .then(data => this.setState({...this.state, user_registrations: data}))
-  // }
-
   getUserCourseData = () => {
     fetch('/registrations')
     .then(res => res.json())
-    // .then(data => this.populateUserCourseData(data))
     .then(data => data.map(item =>
       this.setState({
         ...this.state,
@@ -140,7 +133,6 @@ class App extends Component {
     this.getAllCourseData();
     this.getUserCourseData();
     this.getCategoryData();
-    // this.getRegistrations();
   }
 
   redirectToHome = () => {
@@ -171,7 +163,7 @@ class App extends Component {
 
   updateUserState = (data) => {
     const currentCategories = this.state.user_categories
-    const updatedCategories = currentCategories.includes(data.category) ? currentCategories : [...currentCategories, data.category]
+    const updatedCategories = currentCategories.includes(data.category_name) ? currentCategories : [...currentCategories, data.category_name]
     const sortedCategories = updatedCategories.sort();
     
     this.setState({
@@ -186,27 +178,30 @@ class App extends Component {
   }
 
   saveCourse = (courseData) => {
-    fetch("/save", {
+    fetch("/registrations", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            id: courseData.id,
-            title: courseData.title,
-            source: courseData.source,
-            category_id: courseData.category.id
+            course_id: courseData.course_id
         })
     })
     .then(res => {
         if (res.ok) {
-            // res.json().then((data) => this.updateUserState({
-            //     id: data.id,
-            //     source: data.source,
-            //     title: data.title,
-            //     category: data.category.name
-            // }));
-            res.json().then(data => console.log(data))
+            res.json().then((data) => this.updateUserState({
+              user_id: data.user_id,
+              course_id: data.course_id,
+              registration_id: data.id,
+              title: data.course.title,
+              source: data.course.source,
+              description: data.course.description,
+              category_id: data.category.id,
+              category_name: data.category.name,
+              progress: data.progress,
+              start_date: data.start_date,
+              end_date: data.end_date
+            }));
         } else {
             res.json().then((errorData) => console.log(errorData));
         }
@@ -296,7 +291,6 @@ class App extends Component {
                   all_courses={this.state.all_courses}
                   user_courses={this.state.user_courses}
                   updateProgress={this.updateProgress}
-                  user_courses={this.state.user_courses}
                   saveCourse={this.saveCourse}
                 />
               }/>

@@ -175,6 +175,11 @@ const CourseDetails = (props) => {
         .catch(error => console.log(error))
     }
 
+    const handleSave = (courseData) => {
+        props.saveCourse(courseData);
+        setRegisteredCourse(true);
+    }
+
     if (!props.loggedIn) {
         return (<div>Please log in or sign up.</div>)
     }
@@ -251,7 +256,7 @@ const CourseDetails = (props) => {
                             }
                         </div> :
                         <div>
-                            <Button color="blue" onClick={() => props.saveCourse(courseData)}>Sign up for this course!</Button>
+                            <Button color="blue" onClick={() => handleSave(courseData)}>Sign up for this course!</Button>
                         </div>
                     }
                 </Container>
