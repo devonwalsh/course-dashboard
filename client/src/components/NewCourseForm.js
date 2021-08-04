@@ -62,7 +62,14 @@ export const NewCourseForm = (props) => {
         .then(res => {
             if (res.ok) {
                 res.json()
-                .then((data) => saveNewCourseToState(data))
+                .then((data) => saveNewCourseToState({
+                    course_id: data.id,
+                    title: data.title,
+                    source: data.source,
+                    description: data.description,
+                    category_id: data.category.id,
+                    category_name: data.category.name
+                }))
                 .then(resetForm());
             } else {
                 res.json().then((errorData) => setErrors(errorData.errors));
@@ -93,6 +100,7 @@ export const NewCourseForm = (props) => {
                     updateUserState={props.updateUserState}
                     user_courses={props.user_courses}
                     populateUserCourseData={props.populateUserCourseData}
+                    saveCourse={props.saveCourse}
                     />
                 </div>
             )

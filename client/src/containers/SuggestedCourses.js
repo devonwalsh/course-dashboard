@@ -18,9 +18,10 @@ export const SuggestedCourses = (props) => {
                             key={idx} 
                             category={item}
                             user_courses={props.user_courses}
-                            display_courses={props.display_courses.filter(course => course.category.name === item)} 
+                            display_courses={props.display_courses.filter(course => course.category_name === item)} 
                             updateUserState={props.updateUserState}
                             populateUserCourseData={props.populateUserCourseData}
+                            saveCourse={props.saveCourse}
                         />
                     )
                 }

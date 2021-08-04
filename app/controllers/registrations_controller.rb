@@ -22,7 +22,7 @@ class RegistrationsController < ApplicationController
     private
 
     def registration_params
-        params.permit(:id, :course_id, :start_date, :end_date, :notes)
+        params.permit(:id, :course_id, :start_date, :end_date, :progress, :notes, :registration)
     end
 
 end

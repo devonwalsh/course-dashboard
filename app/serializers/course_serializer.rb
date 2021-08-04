@@ -1,5 +1,5 @@
 class CourseSerializer < ActiveModel::Serializer
-  attributes :id, :title, :source, :category, :user_count
+  attributes :id, :title, :source, :category, :description, :user_count
 
   belongs_to :category
 

@@ -34,13 +34,13 @@ export const CoursePreview = (props) => {
     }
 
     const renderSaveButton = (course_id) => {
-        let course_saved = props.user_courses.find(item =>  item.id === course_id)
+        let course_saved = props.user_courses.find(item =>  item.course_id === course_id)
 
         if (course_saved) {
             return (<Button color="red" onClick={() => unsaveCourse(course_id)}>Unsave</Button>)
         }
         else {
-            return <Button color="green" onClick={saveCourse}>Save</Button>
+            return <Button color="green" onClick={() => props.saveCourse(props.courseData)}>Save</Button>
         }
     }
 
@@ -77,7 +77,7 @@ export const CoursePreview = (props) => {
                     {!props.courseData.progress ? <Progress percent="0" color="blue"/> : <Progress percent={props.courseData.progress} color="blue"/>}
                 </Card.Content>
                 <Card.Content>
-                    <Button as={NavLink} exact to={`/courses/${props.courseData.id}`}>View Details</Button>
+                    <Button as={NavLink} exact to={`/courses/${props.courseData.course_id}`}>View Details</Button>
                     {renderSaveButton(props.courseData.id)}
                 </Card.Content>
             </Card>
