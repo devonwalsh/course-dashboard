@@ -18,7 +18,6 @@ class App extends Component {
     all_categories: [],
     user_courses: [],
     user_categories: [],
-    formattedData: [],
     categoryDropdown: {}
   }
 
