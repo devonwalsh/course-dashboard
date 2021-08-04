@@ -28,7 +28,19 @@ export const SearchForm = (props) => {
         })
         .then(res => {
             if (res.ok) {
-                res.json().then((data) => setResults(data));
+                res.json().then((data) => data.map(item => 
+                    setResults(prev => {
+                      return [...prev, {
+                        course_id: item.id,
+                        title: item.title,
+                        source: item.source,
+                        description: item.description,
+                        category_id: item.category.id,
+                        category_name: item.category.name
+                      }]
+                    }
+                    )
+                  ));
             } else {
                 res.json().then((errorData) => console.log(errorData.errors));
             }
@@ -47,6 +59,8 @@ export const SearchForm = (props) => {
                         user_courses={props.user_courses} 
                         updateUserState={props.updateUserState}
                         populateUserCourseData={props.populateUserCourseData}
+                        saveCourse={props.saveCourse}
+                        unsaveCourse={props.unsaveCourse}
                     />)}
                 </div>
             )
